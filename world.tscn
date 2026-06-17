@@ -12,8 +12,8 @@
 [sub_resource type="GDScript" id="GDScript_gbfbk"]
 script/source = "extends Sprite2D
 
-@export var speed: float = 10.0
-@export var travel_distance: float = 500.0
+@export var speed: float = 3.0
+@export var travel_distance: float = 2306.0
 
 var start_x: float
 
@@ -68,15 +68,16 @@ position = Vector2(574, 273)
 scale = Vector2(2.984375, 2.9907408)
 texture = ExtResource("7_2o6r5")
 
-[node name="water" type="Sprite2D" parent="." unique_id=1263377020]
+[node name="water" type="Node2D" parent="." unique_id=1635155619]
+
+[node name="water1" type="Sprite2D" parent="water" unique_id=1263377020]
 position = Vector2(1149, 328)
 scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
 script = SubResource("GDScript_gbfbk")
-travel_distance = 2306.0
 
 [node name="water2" type="Sprite2D" parent="water" unique_id=542826417]
-position = Vector2(768.0001, 0)
+position = Vector2(3455.0002, 328)
+scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
 script = SubResource("GDScript_gbfbk")
-travel_distance = 2306.0
