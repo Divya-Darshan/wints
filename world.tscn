@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cmvs26l11oy54"]
+
+[ext_resource type="Texture2D" uid="uid://cv82iikic0vgy" path="res://water/1.png" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://cci24s4kxwet2" path="res://water/2.png" id="2_gbfbk"]
+[ext_resource type="Texture2D" uid="uid://dsb2aiw4ychv8" path="res://water/3.png" id="3_ioo17"]
+[ext_resource type="Texture2D" uid="uid://b8uoof228g66s" path="res://water/4.png" id="4_wse8f"]
+[ext_resource type="Texture2D" uid="uid://crd6ek1miqwac" path="res://water/5.png" id="5_ic0uy"]
+[ext_resource type="Texture2D" uid="uid://c5ddocckjvq3s" path="res://water/6.png" id="6_k3n1d"]
+[ext_resource type="Texture2D" uid="uid://crbseilv0707k" path="res://water/7.png" id="7_2o6r5"]
+[ext_resource type="Texture2D" uid="uid://cc2icy5wqmipy" path="res://water/8.png" id="8_70uel"]
+
+[sub_resource type="GDScript" id="GDScript_gbfbk"]
+script/source = "extends Sprite2D
+
+@export var speed: float = 10.0
+@export var travel_distance: float = 500.0
+
+var start_x: float
+
+func _ready() -> void:
+	start_x = position.x
+
+func _process(delta: float) -> void:
+	position.x = move_toward(position.x, position.x - speed, speed * delta)
+
+	if start_x - position.x >= travel_distance:
+		position.x = start_x
+"
+
+[node name="world" type="Node2D" unique_id=1906113033]
+
+[node name="bg" type="Node2D" parent="." unique_id=938704058]
+position = Vector2(-0.99993896, 50)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="1" type="Sprite2D" parent="bg" unique_id=1016613988]
+position = Vector2(579.9999, 277)
+scale = Vector2(2.9999998, 2.9907405)
+texture = ExtResource("1_f3sb7")
+
+[node name="2" type="Sprite2D" parent="bg" unique_id=769755762]
+position = Vector2(576.50006, 274)
+scale = Vector2(2.9921875, 3.0092592)
+texture = ExtResource("2_gbfbk")
+
+[node name="3" type="Sprite2D" parent="bg" unique_id=556966828]
+position = Vector2(575.00006, 274)
+scale = Vector2(2.9739585, 3.0185187)
+texture = ExtResource("3_ioo17")
+
+[node name="4" type="Sprite2D" parent="bg" unique_id=913919374]
+position = Vector2(577, 270.5)
+scale = Vector2(2.984375, 2.976852)
+texture = ExtResource("4_wse8f")
+
+[node name="5" type="Sprite2D" parent="bg" unique_id=1836477591]
+position = Vector2(576, 271.5)
+scale = Vector2(2.9843748, 2.986111)
+texture = ExtResource("5_ic0uy")
+
+[node name="6" type="Sprite2D" parent="bg" unique_id=434710475]
+position = Vector2(576, 273.5)
+scale = Vector2(3, 2.9953704)
+texture = ExtResource("6_k3n1d")
+
+[node name="7" type="Sprite2D" parent="bg" unique_id=1135858218]
+position = Vector2(574, 273)
+scale = Vector2(2.984375, 2.9907408)
+texture = ExtResource("7_2o6r5")
+
+[node name="water" type="Sprite2D" parent="." unique_id=1263377020]
+position = Vector2(1149, 328)
+scale = Vector2(3.002604, 2.9814813)
+texture = ExtResource("8_70uel")
+script = SubResource("GDScript_gbfbk")
+travel_distance = 2306.0
+
+[node name="water2" type="Sprite2D" parent="water" unique_id=542826417]
+position = Vector2(768.0001, 0)
+texture = ExtResource("8_70uel")
+script = SubResource("GDScript_gbfbk")
+travel_distance = 2306.0
