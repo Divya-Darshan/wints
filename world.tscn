@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c5ddocckjvq3s" path="res://water/6.png" id="6_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://crbseilv0707k" path="res://water/7.png" id="7_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://cc2icy5wqmipy" path="res://water/8.png" id="8_70uel"]
+[ext_resource type="Texture2D" uid="uid://b1wwdsjexpljy" path="res://fishing/3 Objects/Boat.png" id="11_ic0uy"]
 
 [sub_resource type="GDScript" id="GDScript_gbfbk"]
 script/source = "extends Sprite2D
@@ -100,3 +101,7 @@ position = Vector2(3455.0002, 328)
 scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
 script = SubResource("GDScript_gbfbk")
+
+[node name="Boat" type="Sprite2D" parent="." unique_id=8849526]
+position = Vector2(396, 525)
+texture = ExtResource("11_ic0uy")
