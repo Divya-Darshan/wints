@@ -7,10 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://dsb2aiw4ychv8" path="res://water/3.png" id="3_ioo17"]
 [ext_resource type="Texture2D" uid="uid://b8uoof228g66s" path="res://water/4.png" id="4_wse8f"]
 [ext_resource type="Texture2D" uid="uid://crd6ek1miqwac" path="res://water/5.png" id="5_ic0uy"]
+[ext_resource type="Script" uid="uid://sv1s755teel0" path="res://water/trees.gd" id="5_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://c5ddocckjvq3s" path="res://water/6.png" id="6_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://crbseilv0707k" path="res://water/7.png" id="7_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://cc2icy5wqmipy" path="res://water/8.png" id="8_70uel"]
-[ext_resource type="Texture2D" uid="uid://b1wwdsjexpljy" path="res://fishing/3 Objects/Boat.png" id="11_ic0uy"]
+[ext_resource type="PackedScene" uid="uid://iuc7jxtyrck5" path="res://player/player.tscn" id="11_ic0uy"]
 
 [sub_resource type="GDScript" id="GDScript_gbfbk"]
 script/source = "extends Sprite2D
@@ -29,6 +30,8 @@ func _process(delta: float) -> void:
 	if start_x - position.x >= travel_distance:
 		position.x = start_x
 "
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k3n1d"]
 
 [node name="world" type="Node2D" unique_id=1906113033]
 
@@ -62,11 +65,13 @@ texture = ExtResource("3_70uel")
 position = Vector2(576.50006, 274)
 scale = Vector2(2.9921875, 3.0092592)
 texture = ExtResource("2_gbfbk")
+script = ExtResource("5_k3n1d")
 
 [node name="3" type="Sprite2D" parent="bg" unique_id=556966828]
 position = Vector2(575.00006, 274)
 scale = Vector2(2.9739585, 3.0185187)
 texture = ExtResource("3_ioo17")
+script = ExtResource("5_k3n1d")
 
 [node name="4" type="Sprite2D" parent="bg" unique_id=913919374]
 position = Vector2(577, 270.5)
@@ -88,6 +93,9 @@ position = Vector2(574, 273)
 scale = Vector2(2.984375, 2.9907408)
 texture = ExtResource("7_2o6r5")
 
+[node name="player" parent="." unique_id=1189875201 instance=ExtResource("11_ic0uy")]
+position = Vector2(0, -5)
+
 [node name="water" type="Node2D" parent="." unique_id=1635155619]
 
 [node name="water1" type="Sprite2D" parent="water" unique_id=1263377020]
@@ -102,6 +110,14 @@ scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
 script = SubResource("GDScript_gbfbk")
 
-[node name="Boat" type="Sprite2D" parent="." unique_id=8849526]
-position = Vector2(396, 525)
-texture = ExtResource("11_ic0uy")
+[node name="world Boder" type="StaticBody2D" parent="." unique_id=1096131464]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world Boder" unique_id=603247920]
+position = Vector2(1212, 306)
+rotation = -1.5813513
+shape = SubResource("WorldBoundaryShape2D_k3n1d")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="world Boder" unique_id=727097381]
+position = Vector2(537, 909.99994)
+rotation = -0.029250741
+shape = SubResource("WorldBoundaryShape2D_k3n1d")
