@@ -4,14 +4,20 @@ const SPEED = 100.0
 
 @onready var gen: AnimatedSprite2D = $gen
 @onready var row: AnimatedSprite2D = $row
+@onready var fishbucket: Node2D = $fishbucket
 
 var gravity_enabled := false
 var hook_out := false
 var is_busy := false
 
 func _ready() -> void:
+	#await get_tree().create_timer(1.0).timeout
+	#die()
+	fishbucket.has_big_bucket = true
 	await get_tree().create_timer(1.0).timeout
-	die()
+	fishbucket.has_fish = true
+	
+
 	gen.visible = true
 	row.visible = false
 
@@ -33,6 +39,7 @@ func _physics_process(delta: float) -> void:
 
 			row.play("row")
 
+
 			if direction < 0:
 				row.flip_h = true
 			else:
@@ -43,6 +50,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 		if not is_busy:
+			
 			row.visible = false
 			gen.visible = true
 

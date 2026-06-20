@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://kbqe218gfunb" path="res://fishing/1 Fisherman/Fisherman_row.png" id="3_yw30f"]
 [ext_resource type="Texture2D" uid="uid://cwpjwdtirvcxe" path="res://fishing/1 Fisherman/Fisherman_walk.png" id="4_qjkh3"]
 [ext_resource type="Texture2D" uid="uid://bgllkbbpitr5u" path="res://fishing/1 Fisherman/Fisherman_hook.png" id="6_rgyib"]
+[ext_resource type="PackedScene" uid="uid://b6prooh33c7xk" path="res://player/fishbucket.tscn" id="10_8t03j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg6s5"]
 atlas = ExtResource("2_g1dw6")
@@ -223,7 +224,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"fish",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -298,7 +299,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k3n1d"]
-radius = 13.99968
+radius = 15.999603
 height = 183.96655
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tqiix"]
@@ -341,10 +342,11 @@ animations = [{
 script = ExtResource("1_hg6s5")
 
 [node name="gen" type="AnimatedSprite2D" parent="." unique_id=1671329144]
-position = Vector2(395, 212.00002)
+position = Vector2(358, 212.00002)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_boad6")
-animation = &"death"
+animation = &"fish"
+autoplay = "idle"
 
 [node name="Boat" type="Sprite2D" parent="." unique_id=1454385780]
 position = Vector2(325.00003, 261)
@@ -352,7 +354,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_rkbax")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1663062788]
-position = Vector2(313, 263.00003)
+position = Vector2(313, 269.00003)
 rotation = -1.5636168
 shape = SubResource("CapsuleShape2D_k3n1d")
 
@@ -362,3 +364,5 @@ scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_x7c3f")
 animation = &"row"
 autoplay = "row"
+
+[node name="fishbucket" parent="." unique_id=1861642696 instance=ExtResource("10_8t03j")]

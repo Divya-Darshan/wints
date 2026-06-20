@@ -11,7 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://c5ddocckjvq3s" path="res://water/6.png" id="6_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://crbseilv0707k" path="res://water/7.png" id="7_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://cc2icy5wqmipy" path="res://water/8.png" id="8_70uel"]
+[ext_resource type="Texture2D" uid="uid://bn6anoyq465kd" path="res://fishing/3 Objects/Grass1.png" id="11_70uel"]
 [ext_resource type="PackedScene" uid="uid://iuc7jxtyrck5" path="res://player/player.tscn" id="11_ic0uy"]
+[ext_resource type="PackedScene" uid="uid://bev7nr54cprxu" path="res://Animals/2/tertle.tscn" id="12_2o6r5"]
+[ext_resource type="Texture2D" uid="uid://dtkifsi8wqttd" path="res://fishing/3 Objects/Grass3.png" id="14_udxuc"]
+[ext_resource type="Texture2D" uid="uid://dbrksgr7sies" path="res://fishing/3 Objects/Grass2.png" id="15_2u3nc"]
+[ext_resource type="Texture2D" uid="uid://c5p1awwb81ols" path="res://fishing/3 Objects/Fishing_hut.png" id="15_ikiii"]
+[ext_resource type="Texture2D" uid="uid://bjbeartepmg74" path="res://fishing/3 Objects/Grass4.png" id="16_udxuc"]
 
 [sub_resource type="GDScript" id="GDScript_gbfbk"]
 script/source = "extends Sprite2D
@@ -36,12 +42,12 @@ func _process(delta: float) -> void:
 [node name="world" type="Node2D" unique_id=1906113033]
 
 [node name="bg" type="Node2D" parent="." unique_id=938704058]
-position = Vector2(-47, 22.000002)
+position = Vector2(-54, 22.000002)
 scale = Vector2(1.05, 1.05)
 
 [node name="S1" type="Sprite2D" parent="bg" unique_id=345695245]
-position = Vector2(593.8095, 270.95236)
-scale = Vector2(2.0916007, 2.383892)
+position = Vector2(600, 271.42856)
+scale = Vector2(2.070106, 2.3809524)
 texture = ExtResource("1_k3n1d")
 
 [node name="s3" type="Sprite2D" parent="bg" unique_id=834498549]
@@ -93,18 +99,159 @@ position = Vector2(574, 273)
 scale = Vector2(2.984375, 2.9907408)
 texture = ExtResource("7_2o6r5")
 
+[node name="Grass2" type="Sprite2D" parent="bg/7" unique_id=1096192322]
+position = Vector2(-140.63724, 94.05218)
+scale = Vector2(0.63824487, 0.6368864)
+texture = ExtResource("15_2u3nc")
+
+[node name="Grass4" type="Sprite2D" parent="bg/7" unique_id=564020188]
+position = Vector2(61.048126, 92.77842)
+scale = Vector2(0.63824487, 0.6368864)
+texture = ExtResource("16_udxuc")
+flip_h = true
+
+[node name="Grass1" type="Sprite2D" parent="bg/7" unique_id=1663712417]
+position = Vector2(-5.6484528, 89.91244)
+scale = Vector2(0.670157, 0.6687306)
+texture = ExtResource("11_70uel")
+
+[node name="Grass3" type="Sprite2D" parent="bg/7" unique_id=1978131083]
+position = Vector2(128.38297, 88.32022)
+texture = ExtResource("14_udxuc")
+
+[node name="Grass5" type="Sprite2D" parent="bg/7" unique_id=1642448705]
+position = Vector2(128.38297, 88.32022)
+texture = ExtResource("14_udxuc")
+
+[node name="market" type="Node2D" parent="." unique_id=879657034]
+position = Vector2(-1250, 22.000002)
+scale = Vector2(1.05, 1.05)
+
+[node name="S1" type="Sprite2D" parent="market" unique_id=1920840491]
+position = Vector2(576.6666, 271.42856)
+scale = Vector2(1.9890876, 2.3809524)
+texture = ExtResource("1_k3n1d")
+
+[node name="s3" type="Sprite2D" parent="market" unique_id=49534159]
+position = Vector2(364.76193, 147.61905)
+rotation = 0.16921015
+scale = Vector2(1.0000001, 1.0000001)
+texture = ExtResource("2_2o6r5")
+
+[node name="s4" type="Sprite2D" parent="market" unique_id=1463331669]
+position = Vector2(861.90485, 105.71425)
+rotation = 0.30735052
+scale = Vector2(-1, 1)
+texture = ExtResource("2_2o6r5")
+
+[node name="S2" type="Sprite2D" parent="market" unique_id=2125998031]
+position = Vector2(612.381, 12.380951)
+scale = Vector2(1.0000002, 1.0000002)
+texture = ExtResource("3_70uel")
+flip_h = true
+
+[node name="2" type="Sprite2D" parent="market" unique_id=1273033257]
+position = Vector2(575.28577, 274)
+scale = Vector2(2.9858632, 3.0092592)
+texture = ExtResource("2_gbfbk")
+script = ExtResource("5_k3n1d")
+
+[node name="3" type="Sprite2D" parent="market" unique_id=713171437]
+position = Vector2(575.00006, 274)
+scale = Vector2(2.9739585, 3.0185187)
+texture = ExtResource("3_ioo17")
+flip_h = true
+script = ExtResource("5_k3n1d")
+
+[node name="4" type="Sprite2D" parent="market" unique_id=1359471047]
+position = Vector2(577, 270.5)
+scale = Vector2(2.984375, 2.976852)
+texture = ExtResource("4_wse8f")
+
+[node name="5" type="Sprite2D" parent="market" unique_id=1318919099]
+position = Vector2(576, 271.5)
+scale = Vector2(2.9843748, 2.986111)
+texture = ExtResource("5_ic0uy")
+
+[node name="FishingHut" type="Sprite2D" parent="market" unique_id=2096324379]
+position = Vector2(289.52383, 166.66667)
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("15_ikiii")
+
+[node name="6" type="Sprite2D" parent="market" unique_id=63436705]
+position = Vector2(576, 273.5)
+scale = Vector2(3, 2.9953704)
+texture = ExtResource("6_k3n1d")
+
+[node name="7" type="Sprite2D" parent="market" unique_id=2003250424]
+position = Vector2(579.0477, 273.33334)
+scale = Vector2(2.984375, 2.9907408)
+texture = ExtResource("7_2o6r5")
+
+[node name="Grass2" type="Sprite2D" parent="market/7" unique_id=1404172702]
+position = Vector2(-140.63724, 94.05218)
+scale = Vector2(0.63824487, 0.6368864)
+texture = ExtResource("15_2u3nc")
+
+[node name="Grass4" type="Sprite2D" parent="market/7" unique_id=252757064]
+position = Vector2(61.048126, 92.77842)
+scale = Vector2(0.63824487, 0.6368864)
+texture = ExtResource("16_udxuc")
+flip_h = true
+
+[node name="Grass1" type="Sprite2D" parent="market/7" unique_id=2076961305]
+position = Vector2(-5.6484528, 89.91244)
+scale = Vector2(0.670157, 0.6687306)
+texture = ExtResource("11_70uel")
+
+[node name="Grass3" type="Sprite2D" parent="market/7" unique_id=497901273]
+position = Vector2(128.38297, 88.32022)
+texture = ExtResource("14_udxuc")
+
+[node name="Grass5" type="Sprite2D" parent="market/7" unique_id=1655556266]
+position = Vector2(128.38297, 88.32022)
+texture = ExtResource("14_udxuc")
+
 [node name="player" parent="." unique_id=1189875201 instance=ExtResource("11_ic0uy")]
-position = Vector2(0, -5)
+
+[node name="Camera2D" type="Camera2D" parent="player" unique_id=1676916127]
+position = Vector2(578, 324)
+limit_left = -1215
+limit_top = 0
+limit_right = 1154
+limit_bottom = 651
+
+[node name="tertle" parent="." unique_id=296826555 instance=ExtResource("12_2o6r5")]
+position = Vector2(314, 318)
 
 [node name="water" type="Node2D" parent="." unique_id=1635155619]
 
 [node name="water1" type="Sprite2D" parent="water" unique_id=1263377020]
+self_modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(1149, 328)
 scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
 script = SubResource("GDScript_gbfbk")
 
 [node name="water2" type="Sprite2D" parent="water" unique_id=542826417]
+self_modulate = Color(1, 1, 1, 0.78431374)
+position = Vector2(3455.0002, 328)
+scale = Vector2(3.002604, 2.9814813)
+texture = ExtResource("8_70uel")
+script = SubResource("GDScript_gbfbk")
+
+[node name="water2" type="Node2D" parent="." unique_id=1006430022]
+position = Vector2(-4612, 0)
+
+[node name="water1" type="Sprite2D" parent="water2" unique_id=2041411276]
+self_modulate = Color(1, 1, 1, 0.78431374)
+position = Vector2(1149, 328)
+scale = Vector2(3.002604, 2.9814813)
+texture = ExtResource("8_70uel")
+script = SubResource("GDScript_gbfbk")
+
+[node name="water2" type="Sprite2D" parent="water2" unique_id=1316079751]
+self_modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(3455.0002, 328)
 scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
@@ -115,6 +262,11 @@ script = SubResource("GDScript_gbfbk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="world Boder" unique_id=603247920]
 position = Vector2(1212, 306)
 rotation = -1.5813513
+shape = SubResource("WorldBoundaryShape2D_k3n1d")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="world Boder" unique_id=1074013591]
+position = Vector2(-1222.0001, 385.00003)
+rotation = 1.5812683
 shape = SubResource("WorldBoundaryShape2D_k3n1d")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="world Boder" unique_id=727097381]
