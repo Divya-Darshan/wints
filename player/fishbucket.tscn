@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://b6prooh33c7xk"]
+
+[ext_resource type="Texture2D" uid="uid://cdf1ljq2vldek" path="res://fishing/3 Objects/Fishbarrel1.png" id="1_4t6df"]
+[ext_resource type="Texture2D" uid="uid://ddqv4earnweu1" path="res://fishing/3 Objects/Fishbarrel2.png" id="2_21onh"]
+[ext_resource type="Texture2D" uid="uid://dhyplbc4ww3ux" path="res://fishing/3 Objects/Fishbarrel3.png" id="3_32knc"]
+[ext_resource type="Texture2D" uid="uid://bhc3jayv0a7kx" path="res://fishing/3 Objects/Fishbarrel4.png" id="4_ryx2m"]
+
+[sub_resource type="GDScript" id="GDScript_p5rnx"]
+script/source = "extends Node2D
+
+@onready var be = $BE
+@onready var bf = $BF
+@onready var big_be = $bigBE
+@onready var big_bf = $bigBF
+
+var has_big_bucket := false
+var has_fish := false
+
+var current_bucket: CanvasItem = null
+
+func _ready() -> void:
+	update_bucket()
+
+func _process(_delta) -> void:
+	update_bucket()
+
+func update_bucket():
+
+	var target_bucket: CanvasItem
+
+	if has_big_bucket:
+		if has_fish:
+			target_bucket = big_bf
+		else:
+			target_bucket = big_be
+	else:
+		if has_fish:
+			target_bucket = bf
+		else:
+			target_bucket = be
+
+	if current_bucket == target_bucket:
+		return
+
+	current_bucket = target_bucket
+
+	switch_bucket(target_bucket)
+
+func switch_bucket(show_node: CanvasItem):
+
+	var buckets = [be, bf, big_be, big_bf]
+
+	for bucket in buckets:
+
+		if bucket == show_node:
+
+			bucket.visible = true
+
+			var original_scale = bucket.scale
+
+			bucket.scale = original_scale * 1.3
+
+			var tween = create_tween()
+			tween.tween_property(
+				bucket,
+				\"scale\",
+				original_scale,
+				0.15
+			)
+
+		else:
+
+			bucket.visible = false
+"
+
+[node name="fishbucket" type="Node2D" unique_id=1861642696]
+script = SubResource("GDScript_p5rnx")
+
+[node name="BE" type="Sprite2D" parent="." unique_id=1036362684]
+position = Vector2(305, 241)
+scale = Vector2(2, 2)
+texture = ExtResource("1_4t6df")
+
+[node name="BF" type="Sprite2D" parent="." unique_id=1847078680]
+visible = false
+position = Vector2(305, 238)
+scale = Vector2(2, 2)
+texture = ExtResource("2_21onh")
+
+[node name="bigBE" type="Sprite2D" parent="." unique_id=208453684]
+visible = false
+position = Vector2(305, 233)
+scale = Vector2(2, 2)
+texture = ExtResource("3_32knc")
+
+[node name="bigBF" type="Sprite2D" parent="." unique_id=485290870]
+position = Vector2(305, 229)
+scale = Vector2(2, 2)
+texture = ExtResource("4_ryx2m")

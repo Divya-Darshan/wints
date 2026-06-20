@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bev7nr54cprxu"]
+
+[ext_resource type="Script" uid="uid://fq02sh0gquvl" path="res://Animals/2/tertle.gd" id="1_f4d10"]
+[ext_resource type="Texture2D" uid="uid://bjvet1grbarxs" path="res://Animals/2/Walk.png" id="2_urgrs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u3nc"]
+atlas = ExtResource("2_urgrs")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udxuc"]
+atlas = ExtResource("2_urgrs")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikiii"]
+atlas = ExtResource("2_urgrs")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbp6q"]
+atlas = ExtResource("2_urgrs")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26xuy"]
+atlas = ExtResource("2_urgrs")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bc84e"]
+atlas = ExtResource("2_urgrs")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wukud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2u3nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udxuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikiii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbp6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26xuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bc84e")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f4d10"]
+radius = 15.999603
+height = 72.02687
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f4d10"]
+radius = 11.472597
+
+[node name="tertle" type="CharacterBody2D" unique_id=296826555]
+script = ExtResource("1_f4d10")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=999524036]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_wukud")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.9191881
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1287280870]
+position = Vector2(-5, 4)
+rotation = -1.5636168
+shape = SubResource("CapsuleShape2D_f4d10")
+
+[node name="Rayright" type="RayCast2D" parent="." unique_id=1358345536]
+position = Vector2(-4, 5)
+target_position = Vector2(49, 1)
+
+[node name="Rayleft" type="RayCast2D" parent="." unique_id=1081291224]
+position = Vector2(-4, 5)
+target_position = Vector2(-47, -1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1687731605]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=361239850]
+scale = Vector2(7.322159, 7.322159)
+shape = SubResource("CircleShape2D_f4d10")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
