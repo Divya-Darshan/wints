@@ -1,55 +1,64 @@
 extends CharacterBody2D
 
-const SPEED := 1.0
+const SPEED := 200.0
 var dir := 1
+
+var dragging := false
 
 @onready var rayright: RayCast2D = $Rayright
 @onready var rayleft: RayCast2D = $Rayleft
 @onready var gen: AnimatedSprite2D = $AnimatedSprite2D
 
-@export var mutation_time := 0.1
-@export var growth_amount := 0.1
-@export var max_scale := 8.0
-
-var player: Node2D = null
-
-func _ready() -> void:
-	mutation_loop()
-
 func _physics_process(delta: float) -> void:
 
-	if player:
-		position = position.move_toward(player.position, 100 * delta)
+	# Drag turtle with right mouse button
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+
+		if global_position.distance_to(get_global_mouse_position()) < 50:
+			dragging = true
+
+	else:
+		dragging = false
+
+	if dragging:
+		global_position = get_global_mouse_position()
 		return
 
+	# Normal movement
 	if rayright.is_colliding():
-		gen.flip_h = !gen.flip_h
 		dir = -1
+		gen.flip_h = true
 
 	if rayleft.is_colliding():
-		gen.flip_h = !gen.flip_h
 		dir = 1
+		gen.flip_h = false
 
 	position.x += dir * SPEED * delta
 
-
-func mutation_loop() -> void:
-
-	while true:
-
-		await get_tree().create_timer(mutation_time).timeout
-
-		if scale.x < max_scale:
-			scale += Vector2(growth_amount, growth_amount)
-
-			if scale.x > max_scale:
-				scale = Vector2(max_scale, max_scale)
-
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	player = body
 
+	if body.has_method("player"):
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body == player:
-		player = null
+		set_physics_process(false)
+
+		var tween = create_tween()
+
+		tween.parallel().tween_property(
+			self,
+			"global_position",
+			body.global_position,
+			0.3
+		)
+
+		tween.parallel().tween_property(
+			self,
+			"scale",
+			Vector2.ZERO,
+			0.3
+		)
+
+		await tween.finished
+
+		body.add_turtle()
+
+		queue_free()

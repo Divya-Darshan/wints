@@ -13,11 +13,29 @@
 [ext_resource type="Texture2D" uid="uid://cc2icy5wqmipy" path="res://water/8.png" id="8_70uel"]
 [ext_resource type="Texture2D" uid="uid://bn6anoyq465kd" path="res://fishing/3 Objects/Grass1.png" id="11_70uel"]
 [ext_resource type="PackedScene" uid="uid://iuc7jxtyrck5" path="res://player/player.tscn" id="11_ic0uy"]
-[ext_resource type="PackedScene" uid="uid://bev7nr54cprxu" path="res://Animals/2/tertle.tscn" id="12_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://dtkifsi8wqttd" path="res://fishing/3 Objects/Grass3.png" id="14_udxuc"]
 [ext_resource type="Texture2D" uid="uid://dbrksgr7sies" path="res://fishing/3 Objects/Grass2.png" id="15_2u3nc"]
 [ext_resource type="Texture2D" uid="uid://c5p1awwb81ols" path="res://fishing/3 Objects/Fishing_hut.png" id="15_ikiii"]
 [ext_resource type="Texture2D" uid="uid://bjbeartepmg74" path="res://fishing/3 Objects/Grass4.png" id="16_udxuc"]
+[ext_resource type="PackedScene" uid="uid://p6oovv4moqbj" path="res://Animals/3/shark.tscn" id="19_26xuy"]
+[ext_resource type="Texture2D" uid="uid://7yy14xr0qbv1" path="res://fishing/3 Objects/Catch/Chest.png" id="19_wukud"]
+[ext_resource type="FontFile" uid="uid://b7kr4ght3g1in" path="res://font/boldpixels.woff2" id="20_il2jm"]
+[ext_resource type="FontFile" uid="uid://dhvpsbwewr7it" path="res://font/boldpixels.woff" id="21_wjb0r"]
+[ext_resource type="Texture2D" uid="uid://bhc3jayv0a7kx" path="res://fishing/3 Objects/Fishbarrel4.png" id="22_mc2jv"]
+[ext_resource type="AudioStream" uid="uid://dmlkixph4df3f" path="res://fishing/3 Objects/Fishing.mp3" id="23_il2jm"]
+
+[sub_resource type="GDScript" id="GDScript_wukud"]
+script/source = "extends Node2D
+
+@onready var color_rect: ColorRect = $CanvasLayer/ColorRect
+
+
+func _ready() -> void:
+	color_rect.modulate.a = 1.0
+
+	var tween = create_tween()
+	tween.tween_property(color_rect, \"modulate:a\", 0.0, 0.5)
+"
 
 [sub_resource type="GDScript" id="GDScript_gbfbk"]
 script/source = "extends Sprite2D
@@ -39,7 +57,77 @@ func _process(delta: float) -> void:
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k3n1d"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26xuy"]
+size = Vector2(2453, 3)
+
+[sub_resource type="GDScript" id="GDScript_26xuy"]
+script/source = "extends Node
+
+var shark := preload(\"res://Animals/3/shark.tscn\")
+var tertule := preload(\"res://Animals/2/tertle.tscn\")
+var jelly := preload(\"res://Animals/1/jelly.tscn\")
+
+@onready var marker_2d: Marker2D = $Marker2D
+@onready var marker_2d_2: Marker2D = $Marker2D2
+@onready var marker_2d_3: Marker2D = $Marker2D3
+@onready var marker_2d_4: Marker2D = $Marker2D4
+@onready var marker_2d_5: Marker2D = $Marker2D5
+@onready var marker_2d_6: Marker2D = $Marker2D6
+@onready var marker_2d_7: Marker2D = $Marker2D7
+@onready var marker_2d_8: Marker2D = $Marker2D8
+
+@export var turtle_count := 10
+@export var shark_count := 6
+@export var jelly_count := 8
+
+var spawn_points := []
+
+func _ready() -> void:
+
+	randomize()
+
+	spawn_points = [
+		marker_2d,
+		marker_2d_2,
+		marker_2d_3,
+		marker_2d_4,
+		marker_2d_5,
+		marker_2d_6,
+		marker_2d_7,
+		marker_2d_8
+	]
+
+	spawn_mobs()
+
+
+func spawn_mobs() -> void:
+
+	for i in turtle_count:
+		spawn_mob(tertule)
+
+	for i in shark_count:
+		spawn_mob(shark)
+
+	for i in jelly_count:
+		spawn_mob(jelly)
+
+
+func spawn_mob(scene: PackedScene) -> void:
+
+	var mob = scene.instantiate()
+
+	var point = spawn_points.pick_random()
+
+	mob.global_position = point.global_position
+
+	get_parent().add_child.call_deferred(mob)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikiii"]
+size = Vector2(441, 243)
+
 [node name="world" type="Node2D" unique_id=1906113033]
+script = SubResource("GDScript_wukud")
 
 [node name="bg" type="Node2D" parent="." unique_id=938704058]
 position = Vector2(-54, 22.000002)
@@ -213,16 +301,14 @@ position = Vector2(128.38297, 88.32022)
 texture = ExtResource("14_udxuc")
 
 [node name="player" parent="." unique_id=1189875201 instance=ExtResource("11_ic0uy")]
+position = Vector2(-932, 220)
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=1676916127]
-position = Vector2(578, 324)
+position = Vector2(442, 324)
 limit_left = -1215
 limit_top = 0
 limit_right = 1154
 limit_bottom = 651
-
-[node name="tertle" parent="." unique_id=296826555 instance=ExtResource("12_2o6r5")]
-position = Vector2(314, 318)
 
 [node name="water" type="Node2D" parent="." unique_id=1635155619]
 
@@ -257,19 +343,146 @@ scale = Vector2(3.002604, 2.9814813)
 texture = ExtResource("8_70uel")
 script = SubResource("GDScript_gbfbk")
 
-[node name="world Boder" type="StaticBody2D" parent="." unique_id=1096131464]
+[node name="boder" type="StaticBody2D" parent="." unique_id=1096131464]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="world Boder" unique_id=603247920]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boder" unique_id=603247920]
 position = Vector2(1212, 306)
 rotation = -1.5813513
 shape = SubResource("WorldBoundaryShape2D_k3n1d")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="world Boder" unique_id=1074013591]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="boder" unique_id=1074013591]
 position = Vector2(-1222.0001, 385.00003)
 rotation = 1.5812683
 shape = SubResource("WorldBoundaryShape2D_k3n1d")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="world Boder" unique_id=727097381]
-position = Vector2(537, 909.99994)
-rotation = -0.029250741
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="boder" unique_id=727097381]
+position = Vector2(501, 646)
+rotation = -0.005386479
 shape = SubResource("WorldBoundaryShape2D_k3n1d")
+
+[node name="wall" type="CollisionShape2D" parent="boder" unique_id=1352927082]
+position = Vector2(-6.5, 290.5)
+shape = SubResource("RectangleShape2D_26xuy")
+
+[node name="manager" type="Node2D" parent="." unique_id=648445814]
+script = SubResource("GDScript_26xuy")
+
+[node name="Marker2D" type="Marker2D" parent="manager" unique_id=546176888]
+position = Vector2(-790, 616)
+
+[node name="Marker2D2" type="Marker2D" parent="manager" unique_id=727761427]
+position = Vector2(-230, 614)
+
+[node name="Marker2D3" type="Marker2D" parent="manager" unique_id=1337783282]
+position = Vector2(406, 611)
+
+[node name="Marker2D4" type="Marker2D" parent="manager" unique_id=59804605]
+position = Vector2(1107, 600)
+
+[node name="Marker2D5" type="Marker2D" parent="manager" unique_id=416242955]
+position = Vector2(54, 545)
+
+[node name="Marker2D6" type="Marker2D" parent="manager" unique_id=806889770]
+position = Vector2(821, 405)
+
+[node name="Marker2D7" type="Marker2D" parent="manager" unique_id=1409865687]
+position = Vector2(-506, 490)
+
+[node name="Marker2D8" type="Marker2D" parent="manager" unique_id=1534196016]
+position = Vector2(-1154, 544)
+
+[node name="shark" parent="." unique_id=296826555 instance=ExtResource("19_26xuy")]
+position = Vector2(78, 340)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=624377245]
+position = Vector2(-970, 173)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=322119013]
+position = Vector2(17.5, 9.5)
+shape = SubResource("RectangleShape2D_ikiii")
+
+[node name="Node2D" type="Node2D" parent="Area2D" unique_id=2117406768]
+
+[node name="ColorRect" type="ColorRect" parent="Area2D/Node2D" unique_id=2137403127]
+offset_left = 248.0
+offset_top = -130.0
+offset_right = 288.0
+offset_bottom = -90.0
+scale = Vector2(10.535078, 5.3707423)
+color = Color(0.19793725, 0.19793722, 0.19793722, 0.45490196)
+
+[node name="ColorRect2" type="ColorRect" parent="Area2D/Node2D" unique_id=1583523274]
+offset_left = 245.0
+offset_top = -134.0
+offset_right = 285.0
+offset_bottom = -94.0
+scale = Vector2(10.801481, 5.6224933)
+color = Color(0.19793725, 0.19793722, 0.19793722, 0.45490196)
+
+[node name="Chest" type="Sprite2D" parent="Area2D/Node2D" unique_id=1269853378]
+position = Vector2(554, -18)
+scale = Vector2(3, 3)
+texture = ExtResource("19_wukud")
+
+[node name="Label" type="Label" parent="Area2D/Node2D/Chest" unique_id=115933678]
+offset_left = -8.000005
+offset_top = 7.0000005
+offset_right = 76.99999
+offset_bottom = 30.0
+scale = Vector2(0.4601591, 0.4601591)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("20_il2jm")
+text = "Chest"
+
+[node name="Fishbarrel4" type="Sprite2D" parent="Area2D/Node2D" unique_id=2000583985]
+position = Vector2(338, -35)
+scale = Vector2(3, 3)
+texture = ExtResource("22_mc2jv")
+
+[node name="Label" type="Label" parent="Area2D/Node2D/Fishbarrel4" unique_id=187508110]
+offset_left = -17.33334
+offset_top = 14.333333
+offset_right = 67.66666
+offset_bottom = 37.333332
+scale = Vector2(0.4601591, 0.4601591)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("20_il2jm")
+text = "Big  Barrel "
+
+[node name="Button" type="Button" parent="Area2D/Node2D" unique_id=24344794]
+offset_left = 303.0
+offset_top = 29.0
+offset_right = 353.0
+offset_bottom = 60.000004
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("21_wjb0r")
+text = "Buy"
+
+[node name="Button2" type="Button" parent="Area2D/Node2D" unique_id=1165954529]
+offset_left = 512.0
+offset_top = 28.0
+offset_right = 562.0
+offset_bottom = 59.000008
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("21_wjb0r")
+text = "Buy"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=444458353]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=251243407]
+offset_left = -2903.0
+offset_top = -659.0
+offset_right = -2863.0
+offset_bottom = -619.0
+scale = Vector2(204.38728, 53.077126)
+color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=137383636]
+stream = ExtResource("23_il2jm")
+volume_db = -3.0
+autoplay = true
+
+[connection signal="body_entered" from="Area2D" to="player" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="player" method="_on_area_2d_body_exited"]
