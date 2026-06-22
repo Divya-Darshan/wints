@@ -415,15 +415,15 @@ position = Vector2(-1154, 544)
 position = Vector2(78, 340)
 
 [node name="fishbucket" parent="." unique_id=1861642696 instance=ExtResource("23_28lb5")]
-position = Vector2(-1375, 2)
+position = Vector2(-1023, -4)
 
 [node name="Boat" type="Sprite2D" parent="." unique_id=236660226]
-position = Vector2(-1042, 263)
+position = Vector2(-690, 257)
 scale = Vector2(3, 3)
 texture = ExtResource("24_wl61u")
 
 [node name="row" type="AnimatedSprite2D" parent="." unique_id=789665524]
-position = Vector2(-1003.99994, 236.99995)
+position = Vector2(-651.99994, 230.99995)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_1ve8j")
 animation = &"row"
@@ -470,16 +470,19 @@ texture = ExtResource("17_uqtdl")
 script = SubResource("GDScript_bsnpk")
 
 [node name="PklLiteKeys0OneLetterA" type="Sprite2D" parent="." unique_id=1826929452]
+visible = false
 position = Vector2(-691.8, 173.2)
 scale = Vector2(4.275, 4.275)
 texture = ExtResource("26_wl61u")
 
 [node name="PklLiteKeys0OneLetterD" type="Sprite2D" parent="." unique_id=390083916]
+visible = false
 position = Vector2(-612.8, 174.2)
 scale = Vector2(4.275, 4.275)
 texture = ExtResource("27_ijhpp")
 
 [node name="Label" type="Label" parent="." unique_id=435671609]
+visible = false
 offset_left = -875.00006
 offset_top = 209.00002
 offset_right = -707.29504
@@ -491,6 +494,7 @@ theme_override_fonts/font = ExtResource("19_aww8w")
 text = "MOVE LEFT ANF RIGHT"
 
 [node name="Label2" type="Label" parent="." unique_id=1797431771]
+visible = false
 offset_left = -943.0
 offset_top = 288.0
 offset_right = -734.0
@@ -509,6 +513,7 @@ dangerous and will hurt you if you go near
 them, so keep your distance."
 
 [node name="Button" type="Button" parent="." unique_id=1137028957]
+visible = false
 offset_left = -305.0
 offset_top = 317.0
 offset_right = -261.0
@@ -520,6 +525,7 @@ text = "PLAY"
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1101894236]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=244375390]
+visible = false
 offset_left = -2903.0
 offset_top = -659.0
 offset_right = -2863.0
