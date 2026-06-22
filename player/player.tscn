@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cwpjwdtirvcxe" path="res://fishing/1 Fisherman/Fisherman_walk.png" id="4_qjkh3"]
 [ext_resource type="Texture2D" uid="uid://bgllkbbpitr5u" path="res://fishing/1 Fisherman/Fisherman_hook.png" id="6_rgyib"]
 [ext_resource type="PackedScene" uid="uid://b6prooh33c7xk" path="res://player/fishbucket.tscn" id="10_8t03j"]
+[ext_resource type="Texture2D" uid="uid://bj26sj3qwco1l" path="res://player/10-StaminBar_Yellow(Sheet).png" id="11_2ieo8"]
+[ext_resource type="Texture2D" uid="uid://7yy14xr0qbv1" path="res://fishing/3 Objects/Catch/Chest.png" id="12_ebec5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg6s5"]
 atlas = ExtResource("2_g1dw6")
@@ -177,7 +179,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 10.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -199,13 +201,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ge24q")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ge24q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ge24q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ge24q")
+"texture": SubResource("AtlasTexture_q28gw")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q28gw")
@@ -224,7 +220,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"fish",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -302,6 +298,69 @@ animations = [{
 radius = 15.999603
 height = 183.96655
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_55jnj"]
+atlas = ExtResource("11_2ieo8")
+region = Rect2(64, 16, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx5ib"]
+atlas = ExtResource("11_2ieo8")
+region = Rect2(0, 16, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2xo5"]
+atlas = ExtResource("11_2ieo8")
+region = Rect2(128, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_art4l"]
+atlas = ExtResource("11_2ieo8")
+region = Rect2(64, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjxoa"]
+atlas = ExtResource("11_2ieo8")
+region = Rect2(0, 0, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gswnw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55jnj")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx5ib")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2xo5")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_art4l")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjxoa")
+}],
+"loop": true,
+"name": &"4",
+"speed": 1.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_tqiix"]
 atlas = ExtResource("3_yw30f")
 region = Rect2(0, 0, 48, 48)
@@ -341,28 +400,40 @@ animations = [{
 [node name="player" type="CharacterBody2D" unique_id=1189875201]
 script = ExtResource("1_hg6s5")
 
+[node name="fishbucket" parent="." unique_id=1861642696 instance=ExtResource("10_8t03j")]
+position = Vector2(-302, -219)
+
 [node name="gen" type="AnimatedSprite2D" parent="." unique_id=1671329144]
-position = Vector2(358, 212.00002)
+position = Vector2(64, -6.999995)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_boad6")
-animation = &"fish"
+animation = &"death"
 autoplay = "idle"
 
 [node name="Boat" type="Sprite2D" parent="." unique_id=1454385780]
-position = Vector2(325.00003, 261)
+position = Vector2(31, 41.999992)
 scale = Vector2(3, 3)
 texture = ExtResource("1_rkbax")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1663062788]
-position = Vector2(313, 269.00003)
+position = Vector2(18.99997, 49.999992)
 rotation = -1.5636168
 shape = SubResource("CapsuleShape2D_k3n1d")
 
+[node name="health" type="AnimatedSprite2D" parent="." unique_id=1686923440]
+position = Vector2(24.000004, -40.999985)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_gswnw")
+animation = &"4"
+
 [node name="row" type="AnimatedSprite2D" parent="." unique_id=1592369968]
-position = Vector2(363, 234.99998)
+position = Vector2(69, 15.999974)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_x7c3f")
 animation = &"row"
 autoplay = "row"
 
-[node name="fishbucket" parent="." unique_id=1861642696 instance=ExtResource("10_8t03j")]
+[node name="Chest" type="Sprite2D" parent="." unique_id=880441070]
+position = Vector2(-40, 23)
+scale = Vector2(2, 2)
+texture = ExtResource("12_ebec5")

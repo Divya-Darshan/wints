@@ -74,6 +74,7 @@ frame_progress = 0.9191881
 position = Vector2(-5, 4)
 rotation = -1.5636168
 shape = SubResource("CapsuleShape2D_f4d10")
+disabled = true
 
 [node name="Rayright" type="RayCast2D" parent="." unique_id=1358345536]
 position = Vector2(-4, 5)
@@ -90,3 +91,4 @@ scale = Vector2(7.322159, 7.322159)
 shape = SubResource("CircleShape2D_f4d10")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

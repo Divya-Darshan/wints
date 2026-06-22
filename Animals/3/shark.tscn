@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://p6oovv4moqbj"]
+
+[ext_resource type="Texture2D" uid="uid://bc0sdfr5ar86e" path="res://Animals/3/Walk.png" id="2_0c4iq"]
+
+[sub_resource type="GDScript" id="GDScript_pfpgp"]
+script/source = "extends CharacterBody2D
+
+const SPEED := 120.0
+const ATTACK_SPEED := 600.0
+
+var dir := 1
+var target: Node2D = null
+var attacking := false
+var caught := false
+
+@export var swim_range := 170.0
+@export var vertical_speed := 80.0
+
+var start_y := 0.0
+var target_y := 0.0
+
+@onready var rayright: RayCast2D = $Rayright
+@onready var rayleft: RayCast2D = $Rayleft
+@onready var gen: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
+func _ready() -> void:
+	randomize()
+	start_y = position.y
+	target_y = start_y
+
+func _physics_process(delta: float) -> void:
+
+	if caught:
+		return
+
+	# Vertical swim
+	position.y = move_toward(
+		position.y,
+		target_y,
+		vertical_speed * delta
+	)
+
+	if abs(position.y - target_y) < 5:
+		target_y = start_y + randf_range(-swim_range, swim_range)
+
+	# Attack player
+	if attacking and target:
+
+		var attack_pos = target.global_position
+		attack_pos.x -= 50
+
+		global_position = global_position.move_toward(
+			attack_pos,
+			ATTACK_SPEED * delta
+		)
+
+		if global_position.distance_to(attack_pos) < 20:
+
+			target.heath_update()
+
+			caught = true
+
+			set_physics_process(false)
+			collision_shape_2d.disabled = true
+
+			var tween = create_tween()
+			tween.parallel().tween_property(
+				self,
+				\"scale\",
+				Vector2.ZERO,
+				0.2
+			)
+
+			await tween.finished
+			queue_free()
+
+		return
+
+	# Patrol
+	if rayright.is_colliding():
+		dir = -1
+		gen.flip_h = true
+
+	if rayleft.is_colliding():
+		dir = 1
+		gen.flip_h = false
+
+	position.x += dir * SPEED * delta
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+
+	if attacking or caught:
+		return
+
+	if body.has_method(\"player\"):
+		target = body
+		attacking = true
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ix45"]
+atlas = ExtResource("2_0c4iq")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3y50"]
+atlas = ExtResource("2_0c4iq")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0oxp"]
+atlas = ExtResource("2_0c4iq")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjacl"]
+atlas = ExtResource("2_0c4iq")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wukud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ix45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3y50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0oxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjacl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f4d10"]
+radius = 23.992203
+height = 134.01091
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f4d10"]
+radius = 11.472597
+
+[node name="shark" type="CharacterBody2D" unique_id=296826555]
+script = SubResource("GDScript_pfpgp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=999524036]
+rotation = 0.012154698
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_wukud")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.8410575
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1287280870]
+position = Vector2(-5, 4)
+rotation = -1.5636168
+shape = SubResource("CapsuleShape2D_f4d10")
+disabled = true
+
+[node name="Rayright" type="RayCast2D" parent="." unique_id=1358345536]
+position = Vector2(-4, 5)
+target_position = Vector2(49, 1)
+
+[node name="Rayleft" type="RayCast2D" parent="." unique_id=1081291224]
+position = Vector2(-4, 5)
+target_position = Vector2(-47, -1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1687731605]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=361239850]
+scale = Vector2(7.322159, 7.322159)
+shape = SubResource("CircleShape2D_f4d10")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=282744875]
+position = Vector2(37, 4)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
